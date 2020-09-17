@@ -14,22 +14,9 @@
 
     <h3>Отправьте нам сообщение</h3>
 
-    @if ($errors->count())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $e)
-                    <li> {{$e}} </li>                
-                @endforeach
-            </ul>
-        </div>    
-    @endif
+    @include('layout.errors')
+    @include('layout.success')
     
-    @if (session('success'))
-        <div class="alert alert-success">
-            <h3>Сообщение отправлено успешно!</h3>
-        </div>
-    @endif
-
     <form method="POST" action="/contacts">
         @csrf
         <div class="form-group">

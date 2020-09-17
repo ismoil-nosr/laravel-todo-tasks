@@ -6,15 +6,7 @@
       Новая задача
     </h3>
 
-    @if ($errors->count())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $e)
-                    <li> {{$e}} </li>                
-                @endforeach
-            </ul>
-        </div>    
-    @endif
+    @include('layout.errors')
 
     <form method="POST" action="/tasks">
         @csrf

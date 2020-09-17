@@ -6,15 +6,7 @@
       Редактирование задачи "{{ $task->title }}"
     </h3>
 
-    @if ($errors->count())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $e)
-                    <li> {{$e}} </li>                
-                @endforeach
-            </ul>
-        </div>    
-    @endif
+    @include('layout.errors')
 
     <form method="POST" action="/tasks/{{ $task->id }}">
         @csrf
@@ -30,7 +22,7 @@
         </div>
         <button type="submit" class="btn btn-primary">Сохранить</button>
     </form>
-
+    
     <form method="POST" action="/tasks/{{ $task->id }}">
         @csrf
         @method('DELETE')
