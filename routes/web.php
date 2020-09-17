@@ -23,3 +23,8 @@ Route::view('/admin', 'admin.index');
 Route::get('/admin/feedbacks', 'App\Http\Controllers\FeedbackController@index');
 
 Route::resource('tasks', 'App\Http\Controllers\TaskController');
+
+Route::post('/tasks/{task}/steps', 'App\Http\Controllers\TaskStepsController@store');
+
+Route::post('/completed-steps/{step}', 'App\Http\Controllers\CompletedStepsController@store');
+Route::delete('/completed-steps/{step}', 'App\Http\Controllers\CompletedStepsController@destroy');
