@@ -15,6 +15,11 @@ class Task extends Model
         return $this->hasMany('App\Models\Step');
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany('App\Models\Tag');
+    }
+
     public function addStep($attributes)
     {
         return $this->steps()->create($attributes);

@@ -28,3 +28,5 @@ Route::post('/tasks/{task}/steps', 'App\Http\Controllers\TaskStepsController@sto
 
 Route::post('/completed-steps/{step}', 'App\Http\Controllers\CompletedStepsController@store');
 Route::delete('/completed-steps/{step}', 'App\Http\Controllers\CompletedStepsController@destroy');
+
+Route::get('/tasks/tags/{tag}', 'App\Http\Controllers\TagsController@index');

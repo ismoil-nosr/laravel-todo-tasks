@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Facade\FlareClient\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +24,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        view()->composer('layout.sidebar', function ($view) {
+            $view->with('tagsCloud', \App\Models\Tag::tagsCloud());
+        });
     }
 }

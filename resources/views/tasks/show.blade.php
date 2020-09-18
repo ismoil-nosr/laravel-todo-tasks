@@ -8,6 +8,9 @@
           <a style="font-size:14px" href="/tasks/{{$task->id}}/edit">Редактировать</a>
         </h2>
         <p class="blog-post-meta">{{$task->created_at->toFormattedDateString()}}</p>
+
+        @include('tasks.tags', ['tags' => $task->tags])
+
         <p>
             {{$task->body}}
         </p>
