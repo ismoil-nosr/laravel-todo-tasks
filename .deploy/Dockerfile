@@ -76,7 +76,7 @@ ARG PUSHER_APP_SECRET=${PUSHER_APP_SECRET}
 ARG PUSHER_APP_CLUSTER=${PUSHER_APP_CLUSTER}
 
 # Start app
-EXPOSE 80
+EXPOSE 80 443
 COPY ./.deploy/entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 
