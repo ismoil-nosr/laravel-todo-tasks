@@ -12,12 +12,12 @@ class Task extends Model
 
     public function steps()
     {
-        return $this->hasMany('App\Models\Step');
+        return $this->hasMany(Step::class);
     }
 
     public function tags()
     {
-        return $this->belongsToMany('App\Models\Tag');
+        return $this->belongsToMany(Tag::class);
     }
 
     public function addStep($attributes)

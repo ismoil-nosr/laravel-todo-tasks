@@ -9,7 +9,13 @@
     <div class="blog-post">
         <ul>
             <li>
-                <a class="p-2 text-muted" href="/admin/feedbacks">Список обращений</a>    
+                Просто элемент списка
+            </li>
+            <li>
+                Просто элемент списка
+            </li>
+            <li>
+                Просто элемент списка
             </li>
         </ul>
         

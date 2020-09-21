@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(['auth']);
+        $this->middleware(['can:update,task'])->except(['index', 'store', 'create']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +22,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::with('tags')->latest()->get();
+        $tasks = auth()->user()->tasks()->with('tags')->latest()->get();
         return view('tasks.index', compact('tasks'));
     }
 
@@ -39,11 +46,30 @@ class TaskController extends Controller
     {
         $attributes = $request->validate([
             'title'=>'required',
-            'body'=>'required'
+            'body'=>'required',
         ]);
         
-        $task_id = Task::create($attributes)->id;
-        return redirect('tasks/' . $task_id);
+        $attributes['author_id'] = auth()->id();
+        $task = Task::create($attributes);
+
+        /*  upd tags for task */
+        $taskTags = $task->tags->keyBy('name'); // get current task tags
+        
+        $tagsInput= explode(',', request('tags')); // get tags from input
+        $tagsCollection = collect(array_map('trim', $tagsInput)); //make collection from array (also trim spaces of arrays' value)
+        $tags = $tagsCollection->keyBy(function ($item) { return $item; }); // prepare tags for sync array
+        $syncIds = $taskTags->intersectByKeys($tags)->pluck('id')->toArray(); // get ids of tags in array
+
+        $tagsToAttach = $tags->diffKeys($taskTags);  // get tags which was not added to task
+        
+        foreach ($tagsToAttach as $tag) {
+            $tag = Tag::firstOrCreate(['name' => $tag]); //get first found tag object or create if not exists
+            $syncIds[] = $tag->id; // add to array for sync
+        }
+
+        $task->tags()->sync($syncIds); // sync method detaches and attaches tags from task
+
+        return redirect('tasks/' . $task->id);
     }
 
     /**
@@ -65,6 +91,8 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
+        // $this->authorize('update', $task);
+
         return view('tasks.edit', compact('task'));
     }
 
