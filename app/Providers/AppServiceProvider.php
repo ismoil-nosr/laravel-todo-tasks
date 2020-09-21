@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Facade\FlareClient\View;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +25,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if (app()->environment('remote')) {
+            URL::forceSchema('https');
+        }
+
         view()->composer('layout.sidebar', function ($view) {
             $view->with('tagsCloud', \App\Models\Tag::tagsCloud());
         });
