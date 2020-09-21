@@ -3,6 +3,7 @@
 echo "🎬 entrypoint.sh"
 
 composer dump-autoload --no-interaction --no-dev --optimize
+cp .env.example .env
 
 echo "🎬 artisan commands"
 
