@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\TaskCreated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,6 +10,9 @@ class Task extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    protected $dispatchesEvents = [
+        'created' => TaskCreated::class
+    ];
 
     public function steps()
     {
@@ -23,5 +27,10 @@ class Task extends Model
     public function addStep($attributes)
     {
         return $this->steps()->create($attributes);
+    }
+
+    public function author()
+    {
+        return $this->belongsTo(User::class);
     }
 }

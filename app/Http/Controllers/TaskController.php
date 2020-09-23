@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\TaskCreated;
 use App\Models\Tag;
 use App\Models\Task;
 use Illuminate\Http\Request;
@@ -51,7 +52,8 @@ class TaskController extends Controller
         
         $attributes['author_id'] = auth()->id();
         $task = Task::create($attributes);
-
+        
+        //напоминание: сие безобразие нужно отрефакторить!!!
         /*  upd tags for task */
         $taskTags = $task->tags->keyBy('name'); // get current task tags
         
@@ -68,7 +70,8 @@ class TaskController extends Controller
         }
 
         $task->tags()->sync($syncIds); // sync method detaches and attaches tags from task
-
+        //напоминание: сие безобразие нужно отрефакторить!!!
+        
         return redirect('tasks/' . $task->id);
     }
 
@@ -111,7 +114,8 @@ class TaskController extends Controller
         ]);
         
         $task->update($attributes);
-
+        
+        //напоминание: сие безобразие нужно отрефакторить!!!
         /*  upd tags for task */
         $taskTags = $task->tags->keyBy('name'); // get current task tags
         
@@ -128,7 +132,8 @@ class TaskController extends Controller
         }
 
         $task->tags()->sync($syncIds); // sync method detaches and attaches tags from task
-        
+        //напоминание: сие безобразие нужно отрефакторить!!!
+
         return redirect('/tasks/'. $task->id); 
     }
 
