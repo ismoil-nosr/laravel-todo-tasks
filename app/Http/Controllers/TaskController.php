@@ -23,7 +23,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = auth()->user()->tasks()->with('tags')->latest()->get();
+        $tasks = auth()->user()->tasks()->with('tags')->latest()->simplePaginate(4);
         return view('tasks.index', compact('tasks'));
     }
 
