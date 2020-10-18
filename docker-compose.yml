@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+
+   laravel_todo:
+     build:
+       context: .
+       dockerfile: ./.deploy/Dockerfile
+     expose:
+       - 80
+     restart: always
+     environment:
+       VIRTUAL_HOST: todo.laravel
+       APP_ENV: development
+       DB_CONNECTION: mysql
+       DB_HOST: db_node_domain
+       DB_PORT: 3306
+       DB_USERNAME: laravel_todo
+       DB_PASSWORD: password
+       DB_DATABASE: laravel_todo
+     container_name: laravel_todo
+volumes:
+    db_data:
+
+networks:
+  default:
+    external:
+      name: nginx-proxy

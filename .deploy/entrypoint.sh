@@ -9,7 +9,7 @@ echo "🎬 artisan commands"
 
 php artisan key:generate
 php artisan cache:clear
-php artisan migrate --no-interaction --force
+php artisan migrate --no-interaction --force --seed
 
 echo "🎬 start supervisord"
 
