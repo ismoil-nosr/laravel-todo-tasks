@@ -58,6 +58,17 @@
         
         @include('layout.errors')
 
+        @forelse ($task->history as $item)
+            <p>
+              Пользователь {{ $item->email }} обновил задачу {{ $item->pivot->created_at->diffForHumans() }} назад:<br>
+              До: {{ $item->pivot->before }}
+              После: {{ $item->pivot->after }}
+            </p>
+        @empty
+            <p>Нет истории</p>
+        @endforelse
+
+
     </div><!-- /.blog-post -->
 
     <nav class="blog-pagination">

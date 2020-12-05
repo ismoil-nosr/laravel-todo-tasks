@@ -21,5 +21,7 @@
         </div><!-- /.blog-post --> 
     @endforeach
 
+    {{ $tasks->links() }}
+    
   </div><!-- /.blog-main -->    
 @endsection

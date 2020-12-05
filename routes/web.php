@@ -13,20 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'App\Http\Controllers\TaskController@index');
-Route::view('/about', 'about');
-
-Route::view('/contacts', 'contacts');
-Route::post('/contacts', 'App\Http\Controllers\FeedbackController@store');
-
+Route::view('/', 'welcome');
 Route::view('/admin', 'admin.index');
-Route::get('/admin/feedbacks', 'App\Http\Controllers\FeedbackController@index');
 
+/**
+ * Tasks
+ */
 Route::resource('tasks', 'App\Http\Controllers\TaskController');
 
 Route::post('/tasks/{task}/steps', 'App\Http\Controllers\TaskStepsController@store');
+Route::get('/tasks/tags/{tag}', 'App\Http\Controllers\TagsController@index');
 
 Route::post('/completed-steps/{step}', 'App\Http\Controllers\CompletedStepsController@store');
 Route::delete('/completed-steps/{step}', 'App\Http\Controllers\CompletedStepsController@destroy');
-
-Route::get('/tasks/tags/{tag}', 'App\Http\Controllers\TagsController@index');

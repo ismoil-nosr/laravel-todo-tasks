@@ -12,7 +12,7 @@ class Tag extends Model
     
     public function tasks()
     {
-        return $this->belongsToMany('App\Models\Task');
+        return $this->belongsToMany(Task::class);
     }
 
     public function getRouteKeyName()
@@ -22,6 +22,9 @@ class Tag extends Model
 
     public static function tagsCloud()
     {
-        return (new static)->has('tasks')->get();
+        //!!!Вообщем это напоминание!!!
+        //безобразие ниже необходимо отрефакторить по всем параметрам
+        $tasks = (new Task)->where('author_id', auth()->id())->with('tags')->get()->pluck('tags')->flatten()->unique('name');
+        return $tasks;
     }
 }
